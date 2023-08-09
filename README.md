@@ -1,2 +1,2 @@
 # forestwatchai_backend_server
-Backend server using NodeJS
+ForestWatchAI backend server using NodeJS
