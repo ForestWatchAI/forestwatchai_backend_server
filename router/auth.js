@@ -6,6 +6,9 @@ const db=require('../db/conn');
 const authenticate=require("../middleware/authenticate");
 const User=require('../model/userSchema');
 
+router.get('/',(req,res)=>{
+    res.send("Welcome to ForestWatchAI Server");
+});
 
 //Registration/Signup Route
 router.post('/register',async (req,res) => {
