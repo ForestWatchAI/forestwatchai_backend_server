@@ -22,6 +22,34 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    date:{
+        type:Date,
+        default:Date.now
+    },
+    messages:[
+        {
+            name:{
+                type:String,
+                required:true
+            },
+            phone:{
+                type:Number,
+                required:true
+            },
+            email:{
+                type:String,
+                required:true
+            },
+            subject:{
+                type:String,
+                required:true
+            },
+            message:{
+                type:String,
+                required:true
+            }
+        }
+    ],
     tokens:[
             {
                 token:{
@@ -42,12 +70,23 @@ userSchema.pre('save',async function(next){
     next();
 });
 
+//Storing the message in the database
+userSchema.methods.addMessage=async function(name,phone,email,subject,message){
+     try{
+        this.messages=this.messages.concat({name,phone,email,subject,message});
+        await this.save();
+        return this.messages;
+     }catch(error){
+        console.log(error);
+     }
+}
+
 // Generating JWT Token
 userSchema.methods.generateAuthToken=async function(){
     try{
         let token=jwt.sign({_id:this._id},process.env.SECRET_KEY); //jwt.sign(payload(as object),secret key,[options callback]);
         this.tokens=this.tokens.concat({token:token});
-        this.save();
+        await this.save();
         return token;
     } catch(err){
         console.log(err);

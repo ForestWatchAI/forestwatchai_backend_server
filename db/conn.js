@@ -11,4 +11,7 @@ mongoose.connect(DB,{
     console.log(`No connection; error:${err}`);
 })
 
+const db =mongoose.connection;
+
+module.exports=db;
  
