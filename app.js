@@ -12,7 +12,7 @@ require('./db/conn');
 app.use(cookieParser()); 
 app.use(express.json());
 app.use(cors({
-    origin:"*",
+    origin:"https://forest-watch-ai-one.vercel.app",
     credentials: true,
 }));
 
